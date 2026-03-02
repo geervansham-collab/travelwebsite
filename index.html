@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Travel Explorer</title>
+
+<style>
+
+/* General */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+
+/* Navigation */
+
+nav {
+  background: #0077b6;
+  color: white;
+  padding: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Sections */
+
+section {
+  display: none;
+  padding: 20px;
+}
+
+section.active {
+  display: block;
+}
+
+/* Search */
+
+.search-box {
+  margin: 20px 0;
+}
+
+input[type="text"] {
+  padding: 8px;
+  width: 220px;
+}
+
+button {
+  padding: 8px 12px;
+  background: #0077b6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+button:hover {
+  background: #023e8a;
+}
+
+/* Results */
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px gray;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* About */
+
+.team-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.team-photo {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px gray;
+  margin: 15px 0;
+}
+
+/* Contact */
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+
+<nav>
+
+  <div>🌍 Travel Explorer</div>
+
+  <div>
+    <a href="#" onclick="showSection('home')">Home</a>
+    <a href="#" onclick="showSection('about')">About Us</a>
+    <a href="#" onclick="showSection('contact')">Contact Us</a>
+  </div>
+
+</nav>
+
+
+<!-- HOME -->
+
+<section id="home" class="active">
+
+<h2>Welcome to Travel Explorer</h2>
+
+<p>
+We help you discover beautiful beaches, temples,
+and countries around the world.
+Use our search tool to begin your journey.
+</p>
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+  <input type="text" id="searchInput"
+  placeholder="Search beach, temple, country...">
+
+  <button onclick="search()">Search</button>
+  <button onclick="clearSearch()">Clear</button>
+
+</div>
+
+
+<!-- Results -->
+
+<div id="results" class="results"></div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<h2>About Us</h2>
+
+<p>
+Travel Explorer is dedicated to helping people
+find amazing destinations worldwide.
+</p>
+
+
+<div class="team-section">
+
+<h3>Our Team</h3>
+
+<!-- Team Image -->
+<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+     alt="Our Team"
+     class="team-photo">
+
+
+<ul>
+  <li>👩‍💼 Sarah – Travel Manager</li>
+  <li>👨‍💻 John – Web Developer</li>
+  <li>👩‍🎨 Aisha – Content Designer</li>
+</ul>
+
+<p>
+Our team works together to give you the best
+travel recommendations.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<p>Send us a message below:</p>
+
+<form>
+
+<label>Name:</label>
+<input type="text" required>
+
+<label>Email:</label>
+<input type="email" required>
+
+<label>Message:</label>
+<textarea rows="5"></textarea>
+
+<button type="submit">Send</button>
+
+</form>
+
+</section>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* Navigation */
+
+function showSection(id) {
+
+  let sections = document.querySelectorAll("section");
+
+  sections.forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+}
+
+
+/* Data */
+
+const data = {
+
+  beach: [
+    {
+      name: "Maldives Beach",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+    },
+    {
+      name: "Bora Bora Beach",
+      img: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
+    }
+  ],
+
+  temple: [
+    {
+      name: "Angkor Wat",
+      img: "https://images.unsplash.com/photo-1548013146-72479768bada"
+    },
+    {
+      name: "Golden Temple",
+      img: "https://images.unsplash.com/photo-1589308078053-fbb5c70dc49b"
+    }
+  ],
+
+  country: [
+    {
+      name: "Japan",
+      img: "https://images.unsplash.com/photo-1549692520-acc6669e2f0c"
+    },
+    {
+      name: "France",
+      img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
+    }
+  ]
+
+};
+
+
+/* Search */
+
+function search() {
+
+  let input =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+  let results =
+    document.getElementById("results");
+
+  results.innerHTML = "";
+
+  let found = false;
+
+
+  if (input.includes("beach")) {
+    showResults(data.beach);
+    found = true;
+  }
+
+  if (input.includes("temple")) {
+    showResults(data.temple);
+    found = true;
+  }
+
+  if (input.includes("country")) {
+    showResults(data.country);
+    found = true;
+  }
+
+  if (!found) {
+    results.innerHTML =
+      "<p>No results found. Try: beach, temple, or country.</p>";
+  }
+
+}
+
+
+/* Display */
+
+function showResults(items) {
+
+  let results =
+    document.getElementById("results");
+
+  items.forEach(item => {
+
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${item.img}">
+      <h3>${item.name}</h3>
+    `;
+
+    results.appendChild(card);
+
+  });
+
+}
+
+
+/* Clear */
+
+function clearSearch() {
+
+  document.getElementById("searchInput").value = "";
+  document.getElementById("results").innerHTML = "";
+
+}
+
+</script>
+
+</body>
+</html>
