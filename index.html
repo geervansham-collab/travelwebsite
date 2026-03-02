@@ -112,11 +112,27 @@ button:hover {
 
 /* Contact */
 
+form {
+  max-width: 400px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px gray;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 form input,
 form textarea {
   width: 100%;
   padding: 8px;
-  margin: 6px 0;
+  margin-top: 5px;
+  box-sizing: border-box;
 }
 
 </style>
@@ -276,7 +292,7 @@ const data = {
     },
     {
       name: "Golden Temple",
-      img: "https://images.unsplash.com/photo-1589308078053-fbb5c70dc49b"
+      img: "https://images.unsplash.com/photo-1592639296346-560c37a0f8f4"
     }
   ],
 
@@ -370,4 +386,5 @@ function clearSearch() {
 </script>
 
 </body>
+
 </html>
